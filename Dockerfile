@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
   git-core \
 #  composer \
   wget nodejs npm cmake libx11-dev libbz2-dev \
-  libopenblas-base \
+#  libopenblas-base \
   && docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
   && docker-php-ext-install imap \
   && docker-php-ext-configure bz2 \
