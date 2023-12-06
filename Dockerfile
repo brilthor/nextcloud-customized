@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
   libc-client-dev libkrb5-dev \
   smbclient \
   git-core \
+  tesseract-ocr libtesseract-dev  \
 #  composer \
   wget nodejs npm cmake libx11-dev libbz2-dev \
 #  libopenblas-base \
