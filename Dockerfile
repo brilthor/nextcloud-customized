@@ -24,11 +24,11 @@ RUN apt update \
   && rm -rf /var/lib/apt/lists/* 
 
 # Install pdlib extension
-RUN wget https://github.com/goodspb/pdlib/archive/master.zip \
-  && mkdir -p /usr/src/php/ext/ \
-  && unzip -d /usr/src/php/ext/ master.zip \
-  && rm master.zip
-RUN docker-php-ext-install pdlib-master
+#RUN wget https://github.com/goodspb/pdlib/archive/master.zip \
+#  && mkdir -p /usr/src/php/ext/ \
+#  && unzip -d /usr/src/php/ext/ master.zip \
+#  && rm master.zip
+#RUN docker-php-ext-install pdlib-master
 
 
 #COPY --from=builder /usr/local/lib/libdlib.so* /usr/local/lib/
