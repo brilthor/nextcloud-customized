@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y \
   cron \
   libc-client-dev libkrb5-dev \
   smbclient \
+  ffmpeg \
   git-core \
   tesseract-ocr libtesseract-dev  \
 #  composer \
