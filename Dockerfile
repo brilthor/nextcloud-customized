@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   unzip \
   gnupg2 \
   cron \
-  libc-client-dev libkrb5-dev \
+  libkrb5-dev \
   smbclient \
   ffmpeg \
   git-core \
