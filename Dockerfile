@@ -1,10 +1,11 @@
 FROM nextcloud:REPLACETAG
-RUN apt-get update && apt-get install -y \
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
   supervisor \
   unzip \
   gnupg2 \
   cron \
-  libc-client-dev libkrb5-dev \
+  libkrb5-dev \
   smbclient \
   ffmpeg \
   git-core \
@@ -12,18 +13,22 @@ RUN apt-get update && apt-get install -y \
 #  composer \
   wget nodejs npm cmake libx11-dev libbz2-dev \
 #  libopenblas-base \
-  && docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
-  && docker-php-ext-install imap \
-  && docker-php-ext-configure bz2 \
-  && docker-php-ext-install bz2 \
   && rm -rf /var/lib/apt/lists/* 
 
-# Enable repo and install dlib (for face recognition)
-RUN echo "deb https://repo.delellis.com.ar bullseye bullseye" > /etc/apt/sources.list.d/20-pdlib.list \
-  && wget -qO - https://repo.delellis.com.ar/repo.gpg.key | apt-key add -
-RUN apt update \
-  && apt install -y libdlib-dev \
-  && rm -rf /var/lib/apt/lists/* 
+
+
+# # # Workaround: libc-client-dev is installed from buster image
+# Add Buster repository for libc-client-dev only
+# Install libc-client-dev package from Buster repository then Clean up the added repository and pin file
+RUN echo "deb [signed-by=/usr/share/keyrings/debian-archive-keyring.gpg] http://archive.debian.org/debian/ buster main" > /etc/apt/sources.list.d/buster.list \
+  && apt-get update && apt-get install -y libc-client-dev \ 
+  && rm -rf /var/lib/apt/lists/* \
+  && rm /etc/apt/sources.list.d/buster.list
+
+RUN  docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
+  && docker-php-ext-install imap \
+  && docker-php-ext-configure bz2 \
+  && docker-php-ext-install bz2 
 
 # Install pdlib extension
 #RUN wget https://github.com/goodspb/pdlib/archive/master.zip \
